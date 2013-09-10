@@ -1,0 +1,66 @@
+{% extends "experiment/base.html" %}
+
+{% block title_text %}
+    {{ experiment.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-10">
+                    <h2>{{ experiment.title }}</h2>
+                    <a href="{% url 'experiment:update' experiment_id=experiment.id %}">
+                        <button type="button" class="btn btn-primary">
+                        Edit Details
+                        </button>
+                    </a>
+                </div>
+                <div class="col-md-2">
+                    {{ experiment.created_date }}
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Paper: {{ experiment.paper }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Authors:
+                    {% for owner in experiment.owners.all %}
+                        <em><a href="{{ owner.get_absolute_url }}">{{ owner.username }}</a></em>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    Tags:
+                    {% for tag in experiment.tag_set.all %}
+                        <em>{{tag.name}}</em>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <h3>Description</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ experiment.description }}
+                </div>
+            </div>
+
+            <h3>Replication Instruction</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ experiment.instruction }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+{% endblock %}

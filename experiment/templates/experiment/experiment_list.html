@@ -1,0 +1,41 @@
+{% extends "experiment/base.html" %}
+
+{% block title_text %}
+    Home
+{% endblock %}
+
+{% block content %}
+    {% for experiment in experiments %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-10">
+                    <a href="{{ experiment.get_absolute_url }}">
+                        <h3>{{ experiment.title }}</h3>
+                    </a>
+                </div>
+                <div class="col-md-2">
+                    {{ experiment.created_date }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ experiment.description }}
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    Tags:
+                    {% for tag in experiment.tag_set.all %}
+                        <em>{{tag.name}}</em>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+{% endblock %}

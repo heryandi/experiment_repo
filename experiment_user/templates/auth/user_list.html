@@ -1,0 +1,32 @@
+{% extends "auth/base.html" %}
+
+{% block title_text %}
+    Users
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered">
+            <tr>
+                <th class="col-md-3">Username</th>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-3">Email</th>
+                <th class="col-md-3">Last login</th>
+            </tr>
+            {% for exp_user in experiment_users %}
+            <tr>
+                <td>
+                    <a href="{{ exp_user.get_absolute_url }}">
+                    {{ exp_user.username }}
+                    </a>
+                </td>
+                <td>{{ exp_user.first_name }} {{ exp_user.last_name }} </td>
+                <td>{{ exp_user.email }} </td>
+                <td>{{ exp_user.last_login }} </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

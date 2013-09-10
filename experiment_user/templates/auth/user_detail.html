@@ -1,0 +1,21 @@
+{% extends "auth/base.html" %}
+
+{% block title_text %}
+    Home
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">{{ experiment_user.username }}</h1>
+    <h4>Full name: {{ experiment_user.first_name }} {{ experiment_user.last_name }}</h4>
+    <h4>Email: {{ experiment_user.email }}</h4>
+    <h4>Last login: {{ experiment_user.last_login }}</h4>
+    
+    <h2>Experiments</h2>
+    {% for experiment in experiment_user.experiment_set.all %}
+        <p>
+            <a href="{{ experiment.get_absolute_url }}"> {{ experiment.title }} </a>
+        </p>
+    {% endfor %}
+</div>
+{% endblock %}
