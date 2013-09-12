@@ -16,7 +16,8 @@
                         </button>
                     </a>
 
-                    <a href="{% url 'experiment:image-home' experiment_id=experiment.id %}">
+                    {% if experiment.s3file %}
+                    <a href="{{ experiment.s3file.url }}" download>
                         <button type="button" class="btn btn-primary">
                         Download Image
                         </button>
@@ -24,9 +25,16 @@
 
                     <a href="{% url 'experiment:image-upload' experiment_id=experiment.id %}">
                         <button type="button" class="btn btn-primary">
+                        Replace Image
+                        </button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'experiment:image-upload' experiment_id=experiment.id %}">
+                        <button type="button" class="btn btn-primary">
                         Upload Image
                         </button>
                     </a>
+                    {% endif %}
                 </div>
                 <div class="col-md-2">
                     {{ experiment.created_date }}

@@ -41,10 +41,12 @@
                 $("#message").html("Upload done!");
 
                 var imageUrl = $("Location", result).text();
+                var imageKey = $("Key", result).text();
                 console.log("imageUrl: " + imageUrl);
                 $.get("{% url 'experiment:image-upload-report' experiment_id=experiment_id %}",
                     {
-                        "imageUrl": imageUrl
+                        "imageUrl": imageUrl,
+                        "imageKey": imageKey
                     }
                 ).done(function() {
                     console.log("Image URL reported to server");

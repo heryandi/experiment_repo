@@ -34,3 +34,8 @@ class Tag(models.Model):
             return True
         except Tag.DoesNotExist:
             return False
+
+class S3File(models.Model):
+    experiment = models.OneToOneField(Experiment)
+    url = models.CharField(max_length = 2048)
+    key = models.CharField(max_length = 2048)

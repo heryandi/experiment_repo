@@ -1,5 +1,8 @@
+from boto.s3.connection import S3Connection
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404, render_to_response
+
+from .models import *
 
 from datetime import datetime, timedelta
 import base64
@@ -107,6 +110,16 @@ def complete_file(request, experiment_id):
 
 def report(request, experiment_id):
     imageUrl = request.GET["imageUrl"]
+    imageKey = request.GET["imageKey"]
+
+    exp = get_object_or_404(Experiment, id=experiment_id)
+    if hasattr(exp, "s3file"):
+        if exp.s3file.key != imageKey:
+            conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_KEY)
+            b = conn.get_bucket(S3_BUCKET_NAME)
+            b.get_key(exp.s3file.key).delete()
+        exp.s3file.delete()
+    S3File.objects.create(experiment_id = exp.id, url = imageUrl, key = imageKey)
     return HttpResponse()
 
 # Mimic javascript encodeURI() function
