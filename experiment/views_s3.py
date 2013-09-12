@@ -104,6 +104,10 @@ def complete_file(request, experiment_id):
         "authorization": authorization
     }), content_type="application/json")
 
+def report(request, experiment_id):
+    imageUrl = request.GET["imageUrl"]
+    return HttpResponse()
+
 # Mimic javascript encodeURI() function
 def encodeURI(str):
     try:

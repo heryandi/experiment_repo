@@ -15,6 +15,18 @@
                         Edit Details
                         </button>
                     </a>
+
+                    <a href="{% url 'experiment:image-home' experiment_id=experiment.id %}">
+                        <button type="button" class="btn btn-primary">
+                        Download Image
+                        </button>
+                    </a>
+
+                    <a href="{% url 'experiment:image-upload' experiment_id=experiment.id %}">
+                        <button type="button" class="btn btn-primary">
+                        Upload Image
+                        </button>
+                    </a>
                 </div>
                 <div class="col-md-2">
                     {{ experiment.created_date }}

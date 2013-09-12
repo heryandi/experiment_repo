@@ -22,10 +22,6 @@ function S3MultipartUploader(fileDOM, settings) {
     me.onDone = settings.onDone || function() {};
 
     me.files = [];
-    me.filesDone = [];
-    me.etags = {};
-    me.progress = {};
-
     me.fileDOM.change(me.onChange);
     me.fileDOM.change(function() {
         // Empty and re-insert
@@ -41,6 +37,10 @@ S3MultipartUploader.prototype.startUpload = function() {
     var me = this;
     console.log(me.fileDOM);
     console.log(me.files);
+
+    me.filesDone = [];
+    me.etags = {};
+    me.progress = {};
 
     me.numFileChunk = {};
     me.fileChunk = {};
@@ -285,7 +285,7 @@ S3MultipartUploader.prototype.completeFileS3 = function(fparams, prevParams) {
                 console.log(result);
                 me.filesDone.push(fileNo);
                 if (me.filesDone.length == me.files.length) {
-                    me.onDone();
+                    me.onDone(result);
                 }
             }
             else {

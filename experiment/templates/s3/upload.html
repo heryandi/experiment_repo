@@ -16,7 +16,7 @@
         var settings = {
             s3AccessKey: "{{ AWS_ACCESS_KEY_ID }}",
             s3BucketName: "{{ S3_BUCKET_NAME }}",
-            serverBase: "{% url 'experiment:image-upload' experiment_id %}",
+            serverBase: "{% url 'experiment:image-upload' experiment_id=experiment_id %}",
 
             onChange: function() {
                 console.log("onChange");
@@ -35,9 +35,19 @@
                 $("#progressText").html(~~progress + "%");
             },
 
-            onDone: function() {
+            onDone: function(result) {
                 $("#uploadButton").removeAttr("disabled");
                 $("#message").html("Upload done!");
+
+                var imageUrl = $("Location", result).text();
+                console.log("imageUrl: " + imageUrl);
+                $.get("{% url 'experiment:image-upload-report' experiment_id=experiment_id %}",
+                    {
+                        "imageUrl": imageUrl
+                    }
+                ).done(function() {
+                    console.log("Image URL reported to server");
+                });
             }
         };
 
