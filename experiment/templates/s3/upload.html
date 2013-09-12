@@ -16,6 +16,7 @@
         var settings = {
             s3AccessKey: "{{ AWS_ACCESS_KEY_ID }}",
             s3BucketName: "{{ S3_BUCKET_NAME }}",
+            s3Folder: "{{ S3_FOLDER }}",
             serverBase: "{% url 'experiment:image-upload' experiment_id=experiment_id %}",
 
             onChange: function() {

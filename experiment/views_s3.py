@@ -18,6 +18,7 @@ def index(request, experiment_id):
         "AWS_ACCESS_KEY_ID": AWS_ACCESS_KEY_ID,
         "S3_BUCKET_NAME": S3_BUCKET_NAME,
         "S3_BUCKET_URL": S3_BUCKET_URL,
+        "S3_FOLDER": "/".join([str(request.user.id), experiment_id]),
         "experiment_id": experiment_id
     }
     return render_to_response("s3/upload.html", data)
