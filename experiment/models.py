@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models.query import Q
 from django.utils import timezone
 
+import os
+
 class Experiment(models.Model):
     title = models.CharField(max_length = 255, blank = False)
     description = models.TextField(max_length = 4096, blank = False)
@@ -15,6 +17,8 @@ class Experiment(models.Model):
     class Meta:
         ordering = ["-created_date"]
 
+    def paper_filename(self):
+        return os.path.basename(self.paper.name)
     def get_absolute_url(self):
         return reverse("experiment:detail", args=[str(self.id)])
 

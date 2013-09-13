@@ -1,4 +1,5 @@
 from boto.s3.connection import S3Connection
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 
@@ -11,10 +12,10 @@ import json
 import time
 import urllib
 
-AWS_ACCESS_KEY_ID = ""
-AWS_SECRET_KEY = ""
-S3_BUCKET_NAME = ""
-S3_BUCKET_URL = "//" + S3_BUCKET_NAME + ".s3.amazonaws.com" 
+AWS_ACCESS_KEY_ID = settings.AWS_ACCESS_KEY_ID
+AWS_SECRET_KEY = settings.AWS_SECRET_KEY
+S3_BUCKET_NAME = settings.S3_BUCKET_NAME
+S3_BUCKET_URL = settings.S3_BUCKET_URL
 
 def index(request, experiment_id):
     data = {

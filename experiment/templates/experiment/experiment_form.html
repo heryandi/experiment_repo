@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container">
-    <form method="post" role="form">
+    <form method="post" role="form" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             {{ form.as_p }}
